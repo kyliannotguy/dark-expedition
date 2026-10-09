@@ -196,8 +196,34 @@ theater('ork','碎颅绿潮','穿越兽人废铁营地，斩首战争头目；�
 const facilityNames={nurgle:{medbay:'隔离医疗舱',armory:'密封净化武库',fork:'孢雾岔道'},khorne:{medbay:'战地救护掩体',armory:'失守军械堡',fork:'壕沟岔道'},necron:{medbay:'登陆医疗站',armory:'探险军械箱',fork:'墓穴交叉回廊'},ork:{medbay:'前沿救护站',armory:'缴获物资仓',fork:'废铁岔路'}};
 
 
+// Primarch legacies are records and relics, not living primarchs in the squad.
+const primarchs={
+ guilliman:{name:'罗伯特·基里曼',title:'摄政的战典',art:'eagle',text:'每场开局额外抽1张牌。',opening:{draw:1},card:'codexOrder'},
+ sanguinius:{name:'圣吉列斯',title:'天使的遗志',art:'chalice',text:'每场开局恢复3生命。',opening:{heal:3},card:'angelMercy'},
+ dorn:{name:'罗格·多恩',title:'不破壁垒',art:'shield',text:'每场开局获得5护盾。',opening:{block:5},card:'praetorianWall'},
+ vulkan:{name:'伏尔甘',title:'锻炉的守护',art:'flame',text:'每场开局恢复1生命、获得3护盾。',opening:{heal:1,block:3},card:'forgeRescue'},
+ russ:{name:'黎曼·鲁斯',title:'狼王的猎令',art:'chainsword',text:'每场开局给敌人施加2层破绽。',opening:{vulnerable:2},card:'wolfJudgment'},
+ lion:{name:'莱昂·艾尔庄森',title:'雄狮的警戒',art:'shield',text:'每场开局令敌人虚弱1回合。',opening:{weaken:1},card:'lionGuard'},
+ khan:{name:'察合台·可汗',title:'逐风战法',art:'arc',text:'每场开局额外获得1能源，可超出基础值。',opening:{energy:1},card:'stormRide'},
+ corax:{name:'科拉克斯',title:'暗鸦的先机',art:'scope',text:'每场开局给敌人施加2层标记。',opening:{mark:2},card:'ravenStrike'},
+ ferrus:{name:'费鲁斯·马努斯',title:'钢铁的训诫',art:'gear',text:'每场开局获得2护盾、额外获得1能源。',opening:{block:2,energy:1},card:'ironResolve'}
+};
+Object.assign(cards,{
+ codexOrder:{name:'战典统筹',cost:1,type:'skill',attr:'战术',draw:2,mark:1,art:'eagle',text:'抽2张牌，给敌人施加1层标记。'},
+ angelMercy:{name:'天使之怜',cost:1,type:'skill',attr:'医疗',heal:4,cleanse:true,art:'chalice',text:'恢复4生命，清除疫毒、焚烧、虚弱和破绽。'},
+ praetorianWall:{name:'禁卫壁垒',cost:1,type:'skill',attr:'战术',block:7,art:'shield',text:'获得7护盾，持续至下次己方回合开始。'},
+ forgeRescue:{name:'锻炉救援',cost:1,type:'skill',attr:'战术',heal:3,block:4,art:'flame',text:'恢复3生命，获得4护盾。'},
+ wolfJudgment:{name:'狼王裁决',cost:2,type:'attack',attr:'物理',damage:4,exposedBonus:4,art:'chainsword',text:'造成4伤害；目标有破绽时额外+4，仍正常触发破绽。'},
+ lionGuard:{name:'雄狮反击',cost:1,type:'reaction',attr:'应对',reflect:3,reactBlock:3,art:'shield',text:'受直接攻击自动打出：先获得3护盾，反射最多3伤害；也可提前部署。'},
+ stormRide:{name:'逐风突进',cost:0,type:'skill',attr:'战术',draw:1,energy:1,art:'arc',text:'抽1张牌，获得1能源，可超过基础值。'},
+ ravenStrike:{name:'暗鸦伏击',cost:1,type:'attack',attr:'物理',damage:3,markedBonus:3,art:'scope',text:'造成3伤害；目标有标记时额外+3，仍正常触发标记。'},
+ ironResolve:{name:'钢铁决心',cost:1,type:'skill',attr:'机械',recycle:true,block:4,art:'gear',text:'获得4护盾，回收坟场最近一张非回收牌至手牌。'}
+});
+events.primarch={name:'原体传承圣库',subtitle:'传承 / 独特卡牌',art:'eagle',description:'封存战典记录着九位忠诚原体的遗志。从三份档案中选一份：获得本局永久开局效果与一张传承牌。每区一次，不重复选择。这里是历史遗物与战术记录，并非原体亲临或复活。'};
+for(const chapter of chapters)chapter.cards.push('primarch');
+
 const upgrades={};for(const [id,c] of Object.entries({...cards})){if(c.damage){upgrades[id]=id+'_plus';cards[id+'_plus']={...c,name:c.name+'＋',damage:c.damage+1,text:c.text+'【强化：基础伤害 +1】',upgraded:true};}}
 
-const api={RULES,cards,classes,enemies,events,adventure,skills,talents,difficulties,chapters,upgrades,campaigns,factions,facilityNames};
+const api={primarchs,RULES,cards,classes,enemies,events,adventure,skills,talents,difficulties,chapters,upgrades,campaigns,factions,facilityNames};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.GAME_DATA=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

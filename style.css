@@ -41,3 +41,5 @@ body{background-image:linear-gradient(#172432d4,#172432d4),url('assets/cc0/polyh
 .class-card.selected{background-image:linear-gradient(145deg,#606650e8,#314553ed),url('assets/cc0/polyhaven-fabric-pattern.png')}
 .tabletop{background-image:linear-gradient(#1e3040dd,#1e3040dd),url('assets/cc0/polyhaven-metal-plate.png'),radial-gradient(ellipse at 50% 30%,#55778a66,transparent 70%);background-size:auto,640px 640px,auto;background-blend-mode:normal,soft-light,normal}
 .field-dressing{display:flex;align-items:center;justify-content:center;gap:12px;margin:13px auto 2px;flex-wrap:wrap}.field-dressing small{font-size:11px;color:#c5d2d6}.reward-screen .field-dressing .secondary{padding:9px 14px}
+
+.legacy-panel{padding:12px 22px;display:flex;flex-wrap:wrap;gap:12px;background:#252f42;border-bottom:1px solid #ae9260;color:#e6c794;font-size:13px}.legacy-panel span{padding:4px 9px;border-left:2px solid #ae9260}.legacy-panel small{display:block;color:#d4dce5;font-size:12px}
